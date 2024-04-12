@@ -1,4 +1,4 @@
 # Boarding_house_search_system
-Backend: Python Rest Framework; 
+Backend: Python Django Rest Framework; 
  Frontend: React Native
 
