@@ -44,6 +44,7 @@ class AuthenticatedUserSerializer(UserSerializer):
 
     def get_followed(self, user):
         return user.be_followed.filter(active=True).exists()
+        # return user.followers.filter(active=True).exists()
 
     class Meta:
         model = UserSerializer.Meta.model
@@ -72,8 +73,8 @@ class ImageSerializer(serializers.ModelSerializer):
 class RoomSerializer(serializers.ModelSerializer):
 
     district = DistrictSerializer()
-    # user = AuthenticatedUserSerializer()
-    user = UserSerializer()
+    user = AuthenticatedUserSerializer()
+    # user = UserSerializer()
     images = serializers.SerializerMethodField('get_images')
 
     def get_images(self, obj):

@@ -24,7 +24,7 @@ class UserViewSet(viewsets.ViewSet, generics.CreateAPIView):
     parser_classes = [parsers.MultiPartParser]
 
     def get_permissions(self):
-        if self.action in ['get_current_user', 'follow']:
+        if self.action in ['get_current_user']:
             return [permissions.IsAuthenticated()]
         if self.action in ['owner']:
             return [permissions.IsAdminUser()]
@@ -41,13 +41,13 @@ class UserViewSet(viewsets.ViewSet, generics.CreateAPIView):
         return Response(serializers.UserSerializer(user).data,
                         status=status.HTTP_200_OK)
 
-    @action(methods=['post'], detail=True, url_path='follow')
-    def follow(self, request, pk):
-        f, created = Follow.objects.get_or_create(follower=request.user, be_followed=self.get_object())
-        if not created:
-            f.active = not f.active
-            f.save()
-        return Response(status=status.HTTP_200_OK)
+    # @action(methods=['post'], detail=True, url_path='follow')
+    # def follow(self, request, pk):
+    #     f, created = Follow.objects.get_or_create(follower=request.user, be_followed=self.get_object())
+    #     if not created:
+    #         f.active = not f.active
+    #         f.save()
+    #     return Response(status=status.HTTP_200_OK)
 
     @action(methods=['post'], detail=True, url_path='owner')
     def owner(self, request, pk):
@@ -70,7 +70,7 @@ class RoomViewSet(viewsets.ViewSet, generics.ListAPIView):
     # parser_classes = [parsers.MultiPartParser]
 
     def get_permissions(self):
-        if self.action in ['add_comments']:
+        if self.action in ['add_comments', 'follow']:
             return [permissions.IsAuthenticated()]
         if self.action in ['create']:
             return [perms.OwnerPerm()]
@@ -161,6 +161,14 @@ class RoomViewSet(viewsets.ViewSet, generics.ListAPIView):
                                                  user=request.user)
         return Response(serializers.CommentSerializer(c).data,
                         status=status.HTTP_201_CREATED)
+
+    @action(methods=['post'], detail=True, url_path='follow')
+    def follow(self, request, pk):
+        f, created = Follow.objects.get_or_create(follower=request.user, be_followed=self.get_object().user)
+        if not created:
+            f.active = not f.active
+            f.save()
+        return Response(serializers.RoomDetailSerializer(self.get_object()).data, status=status.HTTP_200_OK)
 
 
 class OwnerViewSet(viewsets.ViewSet, generics.ListAPIView, generics.RetrieveAPIView):
