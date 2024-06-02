@@ -1,13 +1,233 @@
 {% extends "admin/base_site.html" %}
 
-<!--ghi de-->
-{% block content %}
-<!--<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
-<h1><strong>THỐNG KÊ NGƯỜI DÙNG HỆ THỐNG</strong></h1>
-<h1><a href="{{admin}}">url</a></h1>
+{% block branding %}
+    <h1 id="site-name"><a href="">THỐNG KÊ HỆ THỐNG TÌM KIẾM NHÀ TRỌ</a></h1>
 {% endblock %}
 
+<!--ghi de-->
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  form {
+    margin: 10px;
+    padding: 10px
+  }
+</style>
+<h1><strong>THỐNG KÊ NGƯỜI DÙNG HỆ THỐNG</strong></h1>
+<h1>Tổng người dùng thường của hệ thống: {{count_customer}}</h1>
+<h1>Tổng chủ trọ của hệ thống: {{count_owner}}</h1>
+<!--{% for u in total_user_by_month %}-->
+<!--        <li><strong>Tháng: {{u.month}} </strong>; Số lượng: {{u.total}}</li>-->
+<!--{% endfor %}-->
+
+    <form method="get">
+        <div>
+            <label>Year</label>
+            <input type="number" name="year" placeholder="năm" required></input>
+            <label>Month</label>
+            <input type="number" name="month" min="1" max="12" placeholder="tháng" required></input>
+        </div>
+        <input type="submit" value="Gửi">
+    </form>
+     <form method="get" >
+         <div>
+            <label>Year</label>
+            <input type="number" name="year" placeholder="năm" required></input>
+            <label>Quarter</label>
+            <input type="number" name="quarter" min="1" max="4" placeholder="quý" required></input>
+         </div>
+        <input type="submit" value="Gửi">
+    </form>
+    <form method="get">
+        <div>
+            <label>Year</label>
+            <input type="number" name="year" placeholder="năm" required></input>
+        </div>
+        <input type="submit" value="Gửi">
+    </form>
+
+<ul>
+    {% for u in user %}
+    <li><strong>Vai trò: {{u.role}}</strong>; Số lượng: {{u.counter}}</li>
+    {% endfor %}
+</ul>
+
+<div style=" display: flex; justify-content: space-around; height: 500px">
+     <div style="width: 50%;">
+        <canvas id="myChart1" style="width: 100%;"></canvas>
+    </div>
+    <div style="width: 50%; ">
+        <canvas id="myChart2" style="width: 100%;"></canvas>
+    </div>
+</div>
+<br/>
+<br/>
+<div>
+     <canvas id="myChart3" style="width: 100%;"></canvas>
+</div>
+
+<script>
+    let labels = [];
+    let values = [];
+    {% for u in user %}
+        labels.push('{{ u.role }}');
+        values.push({{ u.counter }});
+    {% endfor %}
+
+
+    window.onload = () => {
+    const ctx1 = document.getElementById('myChart1');
+    const ctx2 = document.getElementById('myChart2');
+    const ctx3 = document.getElementById('myChart3');
+    const h = ctx1.clientHeight;
+
+    ctx2.height = h;
 
 
 
+      new Chart(ctx1, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Số lượng người dùng',
+            data: values,
+            borderWidth: 1,
+            backgroundColor: [
+              'rgb(255,0,0,0.4)',
+              'rgb(0,255,0,0.3)',
+              'rgb(0,0,255,0.5)'
+            ],
+            borderColor: [
+              'rgb(255,0,0)',
+              'rgb(0,255,0)',
+              'rgb(0,0,255)'
+            ],
 
+
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          },
+          plugins: {
+          title: {
+            display: true,
+            text: 'SỐ LƯỢNG NGƯỜI DÙNG THEO ROLE'
+          }
+        }
+        },
+
+      });
+
+      new Chart(ctx2, {
+        type: 'doughnut',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Số lượng người dùng',
+            data: values,
+            borderWidth: 1,
+            backgroundColor: [
+              'rgb(128, 0, 128, 0.5)', // Màu tím
+              'rgb(0, 0, 139, 0.2)',   // Màu xanh dương đậm
+              'rgb(173, 216, 230)' // Màu xanh dương nhạt
+            ],
+            borderColor:[
+              'rgb(128, 0, 128)', // Màu tím
+              'rgb(0, 0, 139)',   // Màu xanh dương đậm
+              'rgb(173, 216, 230)'
+            ]
+
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          },
+           plugins: {
+          title: {
+            display: true,
+            text: 'SỐ LƯỢNG NGƯỜI DÙNG THEO ROLE'
+          }
+        }
+        },
+
+      });
+
+
+       let months = [];
+       let total = [];
+      {% for u in total_user_by_month %}
+            months.push({{u.month}})
+            total.push({{u.total}});
+
+      {% endfor %}
+
+      new Chart(ctx3, {
+        type: 'bar',
+        data: {
+          labels: months,
+          datasets: [{
+            label: 'Số lượng người dùng',
+            data: total,
+            borderWidth: 1,
+            backgroundColor:[
+              'rgba(255, 99, 132, 0.5)',
+              'rgba(255, 159, 64, 0.5)',
+              'rgba(255, 205, 86, 0.5)',
+              'rgba(75, 192, 192, 0.5)',
+              'rgba(54, 162, 235, 0.5)',
+              'rgba(153, 102, 255, 0.5)',
+              'rgba(201, 203, 207, 0.5)'
+            ],
+            borderColor: [
+              'rgb(255, 99, 132)',
+               'rgb(255, 159, 64)',
+               'rgb(255, 205, 86)',
+               'rgb(75, 192, 192)',
+               'rgb(54, 162, 235)',
+               'rgb(153, 102, 255)',
+               'rgb(201, 203, 207)'
+            ],
+
+
+          }]
+        },
+        options: {
+        scales: {
+          x: {
+            type: 'category',
+            title: {
+              display: true,
+              text: 'Tháng'
+            }
+          },
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Số lượng người dùng'
+            }
+          }
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: 'SỐ LƯỢNG NGƯỜI DÙNG THEO THÁNG TRONG NĂM ĐƯỢC NHẬP VÀO'
+          }
+        }
+      }
+      });
+
+
+    }
+
+</script>
+
+{% endblock %}
