@@ -100,6 +100,7 @@ class RoomViewSet(viewsets.ViewSet, generics.ListAPIView):
                                 longitude=request.data.get('longitude'),
                                 latitude=request.data.get('latitude'),
                                 category_id=request.data.get('category'),
+                                district_id=request.data.get('district'),
                                 user=request.user)
 
         images_data = request.FILES.getlist('images')
