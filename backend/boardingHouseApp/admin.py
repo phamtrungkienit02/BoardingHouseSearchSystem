@@ -6,12 +6,13 @@ from django.template.response import TemplateResponse
 from django.urls import path
 from django.utils.safestring import mark_safe
 from . import dao
-from .models import Room, ImageRoom, User, Street, District, City, Category, Follow, Post, PostComment, RoomComment
+from .models import Room, ImageRoom, User, District, City, Category, Follow, Post, PostComment, RoomComment
 
 
 class BoardingHouseAdminSite(admin.AdminSite):
     site_header = 'HỆ THỐNG HỖ TRỢ TÌM KIẾM NHÀ TRỌ'
     index_title = 'QUẢN LÍ HỆ THỐNG'
+    index_template = 'admin/header.html'
     # site_url = '/admin/user-stats/'
 
     def stats(self):
@@ -24,8 +25,10 @@ class BoardingHouseAdminSite(admin.AdminSite):
 
     def stats_view(self, request):
         return TemplateResponse(request, 'admin/stats.html', {
-            # 'course_stats': dao.count_courses_by_cate(),
-            # 'course_count': dao.count_courses(),
+             'user': dao.count_user_by_year(request.GET),
+             'total_user_by_month': dao.count_by_month(request.GET),
+             'count_customer': dao.count_user(),
+             'count_owner': dao.count_user_owner(),
 
         })
 
@@ -95,7 +98,7 @@ admin_site.register(PostComment, CommentPostAdmin)
 admin_site.register(RoomComment, CommentRoomAdmin)
 admin_site.register(Category)
 
-admin_site.register(Street)
+# admin_site.register(Street)
 admin_site.register(District)
 admin_site.register(City)
 
