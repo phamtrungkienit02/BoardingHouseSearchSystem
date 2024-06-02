@@ -27,6 +27,9 @@ class User(AbstractUser):
 
     role = models.CharField(max_length=50, choices=Role.choices, default=Role.CUSTOMER)
 
+    def get_role_name(self):
+        return dict(User.Role.choices)[self.role]
+
 
 class Follow(BaseModel):
     follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followers')
@@ -54,10 +57,10 @@ class BasePost(BaseModel):
     title = models.CharField(max_length=255)
     description = models.TextField()
     # post_type = models.ForeignKey(PostType, on_delete=models.RESTRICT)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    city = models.ForeignKey('City', on_delete=models.RESTRICT)
-    district = models.ForeignKey('District', on_delete=models.RESTRICT)
-    street = models.ForeignKey('Street', on_delete=models.RESTRICT)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    # city = models.ForeignKey('City', on_delete=models.RESTRICT)
+    district = models.ForeignKey('District', on_delete=models.RESTRICT, null=True)
+    # street = models.ForeignKey('Street', on_delete=models.RESTRICT)
 
     class Meta:
         abstract = True
@@ -70,11 +73,12 @@ class Post(BasePost):
 
 
 class Room(BasePost):
-    name = models.CharField(max_length=100)
-    price = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
-    num_of_people = models.SmallIntegerField(default=0)
+    name = models.CharField(max_length=100, null=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0.0, null=True)
+    num_of_people = models.SmallIntegerField(default=0, null=True)
     area = models.DecimalField(max_digits=5, decimal_places=2, null=True)
     address = models.CharField(max_length=100, null=True)
+    # vi do
     longitude = models.CharField(max_length=50, null=True)
     latitude = models.CharField(max_length=50, null=True)
     category = models.ForeignKey(Category, on_delete=models.RESTRICT, null=True)
@@ -88,11 +92,11 @@ class Room(BasePost):
 class ImageRoom(BaseModel):
     image = CloudinaryField(null=True)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    # def __str__(self):
-    #     return self.rooms
+
     @property
     def url(self):
         return self.image.url
+
     def __str__(self):
         return self.url
 
@@ -137,8 +141,8 @@ class City(NameBase):
 
 
 class District(NameBase):
-    city = models.ForeignKey(City,on_delete=models.CASCADE)
+    city = models.ForeignKey(City, on_delete=models.CASCADE)
 
 
-class Street(NameBase):
-    District = models.ForeignKey(District, on_delete=models.CASCADE)
+# class Street(NameBase):
+#     District = models.ForeignKey(District, on_delete=models.CASCADE)
