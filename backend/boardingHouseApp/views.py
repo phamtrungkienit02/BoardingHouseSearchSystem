@@ -26,8 +26,8 @@ class UserViewSet(viewsets.ViewSet, generics.CreateAPIView):
     def get_permissions(self):
         if self.action in ['get_current_user']:
             return [permissions.IsAuthenticated()]
-        if self.action in ['owner']:
-            return [permissions.IsAdminUser()]
+        # if self.action in ['owner']:
+        #     return [permissions.IsAdminUser()]
         return [permissions.AllowAny()]
 
     @action(methods=['get', 'patch'], detail=False, url_path='current-user')
@@ -49,13 +49,13 @@ class UserViewSet(viewsets.ViewSet, generics.CreateAPIView):
     #         f.save()
     #     return Response(status=status.HTTP_200_OK)
 
-    @action(methods=['post'], detail=True, url_path='owner')
-    def owner(self, request, pk):
-        u = self.get_object()
-        if u.role == 'CUSTOMER':
-            u.role = 'OWNER'
-        u.save()
-        return Response(status=status.HTTP_200_OK)
+    # @action(methods=['post'], detail=True, url_path='owner')
+    # def owner(self, request, pk):
+    #     u = self.get_object()
+    #     if u.role == 'CUSTOMER':
+    #         u.role = 'OWNER'
+    #     u.save()
+    #     return Response(status=status.HTTP_200_OK)
 
 
 class CategoryViewSet(viewsets.ViewSet, generics.ListAPIView):
@@ -179,6 +179,8 @@ class OwnerViewSet(viewsets.ViewSet, generics.ListAPIView, generics.RetrieveAPIV
     def get_permissions(self):
         if self.action in ['create']:
             return [permissions.IsAuthenticated()]
+        if self.action in ['owner']:
+            return [permissions.IsAdminUser()]
         return [permissions.AllowAny()]
 
     def create(self, request):
@@ -196,6 +198,14 @@ class OwnerViewSet(viewsets.ViewSet, generics.ListAPIView, generics.RetrieveAPIV
 
         return Response(serializers.OwnerSerializer(r).data,
                         status=status.HTTP_201_CREATED)
+
+    @action(methods=['post'], detail=True, url_path='owner')
+    def owner(self, request, pk):
+        u = self.get_object().user
+        if u.role == 'CUSTOMER':
+            u.role = 'OWNER'
+        u.save()
+        return Response(serializers.OwnerSerializer(self.get_object()).data, status=status.HTTP_200_OK)
 
 
 class PostViewSet(viewsets.ViewSet, generics.ListAPIView):
