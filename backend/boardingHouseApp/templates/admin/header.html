@@ -1,11 +1,24 @@
-{% extends "admin/base.html" %}
+{% extends 'admin/base.html' %}
+
+{% block branding %}
+    <h1 id="site-name"><a href="{% url 'admin:index' %}">HỆ THỐNG HỖ TRỢ TÌM KIẾM NHÀ TRỌ</a></h1>
+{% endblock %}
 
 {% block userlinks %}
-      <header id="header">
-            <div id="branding">
-                 <h1 >
-               test
-                </h1>
-            </div>
-      </header>
+    {% if user.is_active and user.is_superuser%}
+        {% if site_url %}
+              <a href="{{ site_url }}">View site</a> /
+        {% endif %}
+        <div id="user-tools">
+            <strong><a href="/admin/user-stats/">Xem thống kê</a></strong>
+        </div>
+    {% endif %}
+    {% if user.has_usable_password %}
+    <a href="{% url 'admin:password_change' %}">Change password</a> /
+    {% endif %}
+    <form id="logout-form" method="post" action="{% url 'admin:logout' %}">
+        {% csrf_token %}
+        <button type="submit">Log out</button>
+    </form>
+    {% include "admin/color_theme_toggle.html" %}
 {% endblock %}
