@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-^9tgbnyo!ski9)ev3(p3k7z614%3xsqn*fr@vf@mb&(*j*ai)s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['192.168.159.1']
 
 
 # Application definition
@@ -115,6 +115,13 @@ REST_FRAMEWORK = {
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
     )
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'phamtrungkien9a4@gmail.com'
+EMAIL_HOST_PASSWORD = 'iacq kgxd hoyg bphv'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
