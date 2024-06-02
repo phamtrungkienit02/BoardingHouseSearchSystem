@@ -21,4 +21,10 @@ class OwnerPerm(permissions.IsAuthenticated):
                                                           or request.user.is_superuser is True)
 
 
+class CustomerPerm(permissions.IsAuthenticated):
+    def has_permission(self, request, view):
+        return super().has_permission(request, view) and request.user.role in ['CUSTOMER']
+
+
+
 

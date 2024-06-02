@@ -1,3 +1,5 @@
+from _lsprof import profiler_entry
+
 from django.core import paginator
 from django.core.mail import send_mail
 from django.http import Http404, HttpResponse
@@ -178,7 +180,7 @@ class OwnerViewSet(viewsets.ViewSet, generics.ListAPIView, generics.RetrieveAPIV
 
     def get_permissions(self):
         if self.action in ['create']:
-            return [permissions.IsAuthenticated()]
+            return [perms.CustomerPerm()]
         if self.action in ['owner']:
             return [permissions.IsAdminUser()]
         return [permissions.AllowAny()]
