@@ -47,9 +47,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     'oauth2_provider',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -59,6 +61,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'boardingHouse.urls'
 
@@ -103,7 +107,8 @@ CKEDITOR_UPLOAD_PATH = "ckeditor/images/"
 cloudinary.config(
     cloud_name="dmjcqxek3",
     api_key="997423884688544",
-    api_secret="QMTNUyLzrsOzAocniwM6wI0eTtg"
+    api_secret="QMTNUyLzrsOzAocniwM6wI0eTtg",
+    api_proxy= 'http://proxy.server:3128'
 )
 
 
@@ -157,6 +162,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
+# import os
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = 'static/'
 
 # Default primary key field type
@@ -166,3 +173,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CLIENT_ID = '48hC4Y4Za6oyOdG2XcSPYS1coHXnaOdNH9Xy9Iua'
 CLIENT_SECRET = 'DQo8s9tYSYkh5VX6514r4S2Jsi3u0v7vIR6u0a4dNh1KtiMNmB0JxepLxtc9AuxG3LNbvd0vAwzWaMJdmipg1vCxw9BQCReCeZhnnXwCX32MT2d1RCCNXIEYSwLN8uNw'
+
+# OATH2_PROVIDER = {
+# 	'OAUTH2_BACKEND_CLASS': 'oauth2_provider.oauth2_backends.JSONOAuthLibCore'
+# }
+
+# OAUTH2_PROVIDER = {'OAUTH2_BACKEND_CLASS': 'oauth2_provider.oauth2_backends.JSONOAuthLibCore'}
+
+P_Client_id = 'y7WgKFC4MEkHiFsbFIcx3rTJ6FYLSB0RWTlZxNtN'
+P_Client_secret = 'EroQuTTUhn5vlCKxvS07k0FLMsdbOPXMD07qKPuD3HDBjKG5VuRdyyQykRM0BqvbDnaihxR5g3PeIlv4btvEdOG0xgXEzSNKbWqbC6HRLsWhkbDsgNwbnF9MZaUjVJNJ'
