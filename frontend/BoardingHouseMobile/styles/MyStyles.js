@@ -14,12 +14,21 @@ export default StyleSheet.create({
         color: 'blue'
     }, row: {
         flexDirection:"row",
-        flexWrap: "wrap",
+    }, wrap: {
+        flexWrap: "wrap"
     }, margin: {
         margin: 5
+     }, mt15: {
+        marginTop: 25
+     }, m10: {
+        margin: 10,
+    }, image: {
+        width: 130,
+        height: 130,
+        borderRadius: 20
     }, avatar: {
-        width: 80,
-        height: 80,
+        width: 40,
+        height: 40,
         borderRadius: 20
     }
 });
