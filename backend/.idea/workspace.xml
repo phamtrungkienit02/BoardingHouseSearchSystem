@@ -3,8 +3,18 @@
   <component name="ChangeListManager">
     <list default="true" id="1233e3be-cb27-4222-8045-79da4573d0d0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boardingHouse/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/boardingHouse/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boardingHouseApp/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/boardingHouseApp/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boardingHouseApp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/boardingHouseApp/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/boardingHouseApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/boardingHouseApp/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/BoardingHouseMobile/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/BoardingHouseMobile/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/BoardingHouseMobile/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/BoardingHouseMobile/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/BoardingHouseMobile/components/Room/Room.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/BoardingHouseMobile/components/Room/Room.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/BoardingHouseMobile/configs/APIs.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/BoardingHouseMobile/configs/APIs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/BoardingHouseMobile/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/BoardingHouseMobile/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/BoardingHouseMobile/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/BoardingHouseMobile/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/BoardingHouseMobile/styles/MyStyles.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/BoardingHouseMobile/styles/MyStyles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/BoardingHouseMobile/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/BoardingHouseMobile/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
