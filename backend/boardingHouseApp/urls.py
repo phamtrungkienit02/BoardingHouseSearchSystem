@@ -14,6 +14,7 @@ router.register('owners', views.OwnerViewSet, basename='owners')
 router.register('posts', views.PostViewSet, basename='posts')
 router.register('room-comment', views.CommentRoomViewSet, basename='room-comment')
 router.register('post-comment', views.CommentPostViewSet, basename='post-comment')
+router.register('districts', views.DistrictViewSet, basename='districts')
 
 urlpatterns = [
     path('', include(router.urls))

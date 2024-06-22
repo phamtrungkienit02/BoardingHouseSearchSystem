@@ -13,7 +13,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class DistrictSerializer(serializers.ModelSerializer):
     class Meta:
         model = District
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -91,7 +91,7 @@ class RoomDetailSerializer(RoomSerializer):
 
     class Meta:
         model = RoomSerializer.Meta.model
-        fields = RoomSerializer.Meta.fields + ['name', 'num_of_people', 'area', 'address',
+        fields = RoomSerializer.Meta.fields + ['name', 'description','num_of_people', 'area', 'address',
                                                'longitude', 'latitude', 'category']
 
 

@@ -14,7 +14,7 @@ from rest_framework.response import Response
 
 from . import serializers, paginators, perms, dao
 from .admin import CommentRoomAdmin
-from .models import User, Category, Room, Post, ImageRoom, RoomComment, Follow, PostComment
+from .models import User, Category, Room, Post, ImageRoom, RoomComment, Follow, PostComment, District
 from .serializers import ImageSerializer
 import base64
 
@@ -214,6 +214,7 @@ class OwnerViewSet(viewsets.ViewSet, generics.ListAPIView, generics.RetrieveAPIV
 class PostViewSet(viewsets.ViewSet, generics.ListAPIView):
     queryset = Post.objects.select_related('user', 'district').filter(active=True)
     serializer_class = serializers.PostSerializer
+    pagination_class = paginators.RoomPaginator
 
     def create(self, request):
         p = Post.objects.create(title=request.data.get('title'),
@@ -275,6 +276,13 @@ class CommentPostViewSet(viewsets.ViewSet, generics.DestroyAPIView):
 #         context = RequestContext(request, {})
 #         html = template.render(context)
 #         return Response(html, content_type='text/html')
+
+class DistrictViewSet(viewsets.ViewSet, generics.ListAPIView):
+    queryset = District.objects.all()
+    serializer_class = serializers.DistrictSerializer
+
+
+
 
 def swagger_image(request):
     return HttpResponse('Image content', content_type='image/png')
